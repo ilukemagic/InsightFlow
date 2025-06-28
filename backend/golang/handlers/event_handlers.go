@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 
 	"insightflow/infrastructure"
@@ -283,15 +282,4 @@ func (eh *EventHandler) HandleHealth(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
-}
-
-// parseRedisInt 解析Redis整数
-func parseRedisInt(s string) int64 {
-	if s == "" {
-		return 0
-	}
-	if result, err := strconv.ParseInt(s, 10, 64); err == nil {
-		return result
-	}
-	return 0
 }

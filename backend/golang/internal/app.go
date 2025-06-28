@@ -23,7 +23,7 @@ type App struct {
 	KafkaProducer  *infrastructure.KafkaProducer
 	KafkaConsumer  *infrastructure.KafkaConsumer
 	EventProcessor *services.EventProcessor
-	ServiceManager *services.ServiceManager // 新增：服务管理器
+	ServiceManager *services.ServiceManager
 	EventHandler   *handlers.EventHandler
 }
 
@@ -59,7 +59,7 @@ func NewApp(cfg *config.Config) (*App, error) {
 	}
 	app.KafkaConsumer = kafkaConsumer
 
-	// 初始化服务管理器（需要Redis客户端）
+	// 初始化服务管理器
 	app.ServiceManager = services.NewServiceManagerWithRedis(app.Redis)
 
 	// 初始化事件处理器

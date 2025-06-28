@@ -64,7 +64,7 @@ func (kp *KafkaProducer) SendEvent(event models.UserEvent) error {
 		return err
 	}
 
-	// 可选：打印分区信息（调试用）
+	// 打印分区信息
 	log.Printf("事件发送成功: Topic=%s, Partition=%d, Offset=%d, UserID=%s",
 		kp.topic, partition, offset, event.UserID)
 

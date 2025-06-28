@@ -74,5 +74,3 @@ func ValidatedRequest(serviceManager *services.ServiceManager) func(http.Handler
 		})
 	}
 }
-
-// 使用middleware包中已有的randomString函数
