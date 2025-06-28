@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightFlow SDK 演示页面</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .content {
+            padding: 40px;
+        }
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .demo-section h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.5em;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .demo-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .primary {
+            background: #667eea;
+            color: white;
+        }
+        .primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        .secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .secondary:hover {
+            background: #5a6268;
+        }
+        .success {
+            background: #28a745;
+            color: white;
+        }
+        .success:hover {
+            background: #218838;
+        }
+        .info {
+            background: #17a2b8;
+            color: white;
+        }
+        .info:hover {
+            background: #138496;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            width: 200px;
+        }
+        .product-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .product-card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .event-log {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        .form-demo {
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>InsightFlow 用户行为分析平台</h1>
+            <p>实时追踪用户行为，助力业务增长</p>
+        </div>
+        
+        <div class="content">
+            <!-- 基础事件测试 -->
+            <div class="demo-section">
+                <h2>🎯 基础事件追踪测试</h2>
+                <p>点击下面的按钮，观察控制台输出的事件数据</p>
+                <div class="button-group">
+                    <button class="demo-button primary" onclick="trackCustomEvent('button_click', {button_type: 'primary'})">
+                        主要按钮
+                    </button>
+                    <button class="demo-button secondary" onclick="trackCustomEvent('button_click', {button_type: 'secondary'})">
+                        次要按钮
+                    </button>
+                    <button class="demo-button success" onclick="trackCustomEvent('cta_click', {action: 'signup'})">
+                        注册按钮
+                    </button>
+                    <button class="demo-button info" onclick="trackCustomEvent('cta_click', {action: 'login'})">
+                        登录按钮
+                    </button>
+                </div>
+            </div>
+
+            <!-- 电商场景模拟 -->
+            <div class="demo-section">
+                <h2>🛒 电商购买流程模拟</h2>
+                <p>模拟用户在电商网站的购买行为</p>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <div class="product-card" onclick="viewProduct('product_001', '智能手机')">
+                        <h3>智能手机</h3>
+                        <p>最新款智能手机，性能强劲</p>
+                        <div class="price">¥3999</div>
+                        <button class="demo-button primary" style="margin-top: 10px;" onclick="event.stopPropagation(); addToCart('product_001')">
+                            加入购物车
+                        </button>
+                    </div>
+                    
+                    <div class="product-card" onclick="viewProduct('product_002', '笔记本电脑')">
+                        <h3>笔记本电脑</h3>
+                        <p>轻薄便携，办公娱乐两相宜</p>
+                        <div class="price">¥5999</div>
+                        <button class="demo-button primary" style="margin-top: 10px;" onclick="event.stopPropagation(); addToCart('product_002')">
+                            加入购物车
+                        </button>
+                    </div>
+                    
+                    <div class="product-card" onclick="viewProduct('product_003', '智能手表')">
+                        <h3>智能手表</h3>
+                        <p>健康监测，运动追踪</p>
+                        <div class="price">¥1299</div>
+                        <button class="demo-button primary" style="margin-top: 10px;" onclick="event.stopPropagation(); addToCart('product_003')">
+                            加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="button-group" style="margin-top: 20px;">
+                    <button class="demo-button success" onclick="completePurchase()">
+                        完成购买
+                    </button>
+                    <button class="demo-button secondary" onclick="clearCart()">
+                        清空购物车
+                    </button>
+                </div>
+            </div>
+
+            <!-- 表单测试 -->
+            <div class="demo-section">
+                <h2>📝 表单交互测试</h2>
+                <div class="form-demo">
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" id="username" name="username" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" id="email" name="email" placeholder="请输入邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">分类</label>
+                            <select id="category" name="category">
+                                <option value="">请选择</option>
+                                <option value="个人用户">个人用户</option>
+                                <option value="企业用户">企业用户</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">留言</label>
+                            <textarea id="message" name="message" rows="4" placeholder="请输入留言"></textarea>
+                        </div>
+                        <button type="submit" class="demo-button primary">提交表单</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 实时统计面板 -->
+            <div class="demo-section">
+                <h2>📊 实时统计面板</h2>
+                <div class="stats-panel">
+                    <div class="stat-card">
+                        <div class="stat-number" id="eventCount">0</div>
+                        <div class="stat-label">总事件数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="clickCount">0</div>
+                        <div class="stat-label">点击事件</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="sessionTime">0s</div>
+                        <div class="stat-label">会话时长</div>
+                    </div>
+                </div>
+                
+                <div class="event-log" id="eventLog">
+                    <div>🔍 实时事件日志：</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 配置InsightFlow SDK -->
+    <script>
+        // SDK配置
+        window.insightflowConfig = {
+            apiUrl: 'http://localhost:8000/bff/events/batch',
+            batchSize: 5,
+            batchTimeout: 3000,
+            debug: true,
+            userId: 'demo_user_' + Math.random().toString(36).substring(7)
+        };
+    </script>
+    
+    <!-- 加载InsightFlow SDK -->
+    <script src="../sdk/insightflow-sdk.js"></script>
+    
+    <script>
+        // 全局统计变量
+        let eventCount = 0;
+        let clickCount = 0;
+        let sessionStartTime = Date.now();
+        let cart = [];
+        
+        // 更新统计面板
+        function updateStats() {
+            document.getElementById('eventCount').textContent = eventCount;
+            document.getElementById('clickCount').textContent = clickCount;
+            document.getElementById('sessionTime').textContent = Math.floor((Date.now() - sessionStartTime) / 1000) + 's';
+        }
+        
+        // 添加事件日志
+        function addEventLog(eventType, data) {
+            const log = document.getElementById('eventLog');
+            const time = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `[${time}] <strong>${eventType}</strong>: ${JSON.stringify(data)}`;
+            log.appendChild(logEntry);
+            log.scrollTop = log.scrollHeight;
+            
+            eventCount++;
+            if (eventType === 'click') clickCount++;
+            updateStats();
+        }
+        
+        // 重写SDK的track方法以显示日志
+        const originalTrack = window.insightflow.track.bind(window.insightflow);
+        window.insightflow.track = function(eventType, data) {
+            addEventLog(eventType, data);
+            return originalTrack(eventType, data);
+        };
+        
+        // 自定义事件追踪
+        function trackCustomEvent(eventType, data) {
+            window.insightflow.track(eventType, data);
+        }
+        
+        // 电商场景函数
+        function viewProduct(productId, productName) {
+            window.insightflow.track('product_view', {
+                product_id: productId,
+                product_name: productName,
+                source: 'product_list'
+            });
+        }
+        
+        function addToCart(productId) {
+            cart.push(productId);
+            window.insightflow.track('add_to_cart', {
+                product_id: productId,
+                cart_count: cart.length
+            });
+        }
+        
+        function clearCart() {
+            cart = [];
+            window.insightflow.track('cart_clear', {
+                action: 'clear_all'
+            });
+        }
+        
+        function completePurchase() {
+            if (cart.length === 0) {
+                alert('购物车为空！请先添加商品。');
+                return;
+            }
+            
+            const orderId = 'order_' + Date.now();
+            window.insightflow.trackPurchase({
+                orderId: orderId,
+                amount: cart.length * 1000, // 模拟金额
+                currency: 'CNY',
+                items: cart
+            });
+            
+            cart = [];
+            alert('购买成功！订单号：' + orderId);
+        }
+        
+        // 表单提交处理
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            window.insightflow.track('form_submit', {
+                form_type: 'contact',
+                form_data: data
+            });
+            
+            alert('表单提交成功！');
+        }
+        
+        // 定时更新会话时长
+        setInterval(updateStats, 1000);
+        
+        // 页面加载完成事件
+        window.addEventListener('load', function() {
+            window.insightflow.track('page_loaded', {
+                load_time: Date.now() - sessionStartTime,
+                demo_version: '1.0'
+            });
+        });
+        
+        // 添加页面滚动监听提示
+        let scrollNotified = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollNotified && window.pageYOffset > 100) {
+                scrollNotified = true;
+                console.log('📱 滚动事件已自动追踪！');
+            }
+        });
+        
+        console.log('🚀 InsightFlow SDK 演示页面已加载！');
+        console.log('👀 打开开发者工具查看详细的事件数据');
+        console.log('🎯 所有点击、滚动、表单事件都会自动追踪');
+    </script>
+</body>
+</html> 
