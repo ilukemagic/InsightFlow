@@ -61,7 +61,7 @@ python3 -m pip install -r requirements.txt
 
 # 启动FastAPI BFF服务（后台运行）
 echo "⚡ 启动FastAPI BFF服务..."
-nohup python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload > ../../logs/fastapi.log 2>&1 &
+nohup python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload > ../../logs/fastapi.log 2>&1 &
 FASTAPI_PID=$!
 echo "FastAPI服务PID: $FASTAPI_PID"
 cd ../..
