@@ -4,13 +4,14 @@ import "time"
 
 // 事件类型常量
 const (
-	EventTypeClick    = "click"
-	EventTypeView     = "view"
-	EventTypeScroll   = "scroll"
-	EventTypePurchase = "purchase"
-	EventTypeSubmit   = "submit"
-	EventTypeLoad     = "load"
-	EventTypeExit     = "exit"
+	EventTypeClick            = "click"
+	EventTypeView             = "view"
+	EventTypeScroll           = "scroll"
+	EventTypePurchase         = "purchase"
+	EventTypeSubmit           = "submit"
+	EventTypeLoad             = "load"
+	EventTypeExit             = "exit"
+	EventTypeVisibilityChange = "visibility_change"
 )
 
 // 设备类型常量

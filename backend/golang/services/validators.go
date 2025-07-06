@@ -38,6 +38,7 @@ func (v *EventValidator) IsValidEventType(eventType string) bool {
 	validTypes := []string{
 		models.EventTypeClick, models.EventTypeView, models.EventTypeScroll,
 		models.EventTypePurchase, models.EventTypeSubmit, models.EventTypeLoad, models.EventTypeExit,
+		models.EventTypeVisibilityChange,
 	}
 	for _, validType := range validTypes {
 		if eventType == validType {
