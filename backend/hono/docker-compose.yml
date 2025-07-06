@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  hono-bff:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=8000
+      - GOLANG_SERVICE_URL=http://golang-service:8080
+      - REDIS_URL=redis://redis:6379
+      - CACHE_TTL=60
+      - DASHBOARD_CACHE_TTL=30
+      - FUNNEL_CACHE_TTL=300
+    depends_on:
+      - redis
+    networks:
+      - bff-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - bff-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  redis-data:
+
+networks:
+  bff-network:
+    driver: bridge 
